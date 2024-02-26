@@ -1,9 +1,24 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useContext } from "react";
+
+//---> Files 
+import Home from "./pages/Home"
+import NotFound from "./pages/NotFound"
+
+import NoteState from "./context/Notes/NoteState";
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <NoteState>
+      <BrowserRouter>
+        <Routes>
+
+          <Route exact path="/" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+
+        </Routes>
+      </BrowserRouter>
+    </NoteState>
   );
 }
 
