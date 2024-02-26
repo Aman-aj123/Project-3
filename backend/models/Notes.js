@@ -15,7 +15,8 @@ const notesSchema = mongoose.Schema({
           required: true
      },
      tags: {
-          type: String
+          type: String,
+         default: "general"
      },
      date: {
           type: Date,
