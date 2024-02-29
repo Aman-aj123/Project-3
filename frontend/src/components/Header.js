@@ -12,6 +12,7 @@ const Header = () => {
           <span className="ml-3 text-xl">iNoteBook</span>
         </Link>
         <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+          <NavLink to="/addtodo" className="mr-5 cursor-pointer transition hover:text-blue-500">Add Todo</NavLink>
           <NavLink to="/" className="mr-5 cursor-pointer hover:text-blue-500">Home</NavLink>
           <NavLink to="/about" className="mr-5 cursor-pointer transition hover:text-blue-500">About</NavLink>
           <NavLink to="/contact" className="mr-5 cursor-pointer transition hover:text-blue-500">Contact</NavLink>
