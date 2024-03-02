@@ -28,9 +28,11 @@ const NotesItems = ({ notes }) => {
                     tags: tags || "",
                     id: id || ""
                }));
+               console.log(notes);
           }
-     }, []);
+     }, [notes, id]);
 
+     
 
      const handleChange = (e) => {
           setNoteValue({ ...noteValue, [e.target.name]: e.target.value });
@@ -41,7 +43,7 @@ const NotesItems = ({ notes }) => {
      };
 
      const handleEditClick = () => {
-          editNote( title, description, tags, id );
+          editNote(title, description, tags, id);
           setMainClass("none");
      };
 
@@ -95,7 +97,7 @@ const NotesItems = ({ notes }) => {
 
 
 
-               {[...notes].reverse()?.map((element, index) => (
+               {Array.isArray(notes) && notes.length !== 0 && [...notes].reverse().map((element, index) => (
 
                     <div key={index} className="notes-items   h-fit border border-gray-200 rounded-sm w-[325px] px-2 py-2">
                          <h4 className="font-semibold  text-black text-xl">{element.title}</h4>
@@ -110,7 +112,7 @@ const NotesItems = ({ notes }) => {
                ))
                }
 
-               {notes.length === 0 &&
+               {notes && notes.length === 0 &&
                     <div className="empty-container">
                          <img className='w-[80%] md:w-[300px]' src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-3609561-3016826.png?f=webp" />
                     </div>

@@ -12,7 +12,7 @@ const NoteState = (props) => {
 
 
      // auth token
-     const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVkZGMxMGJkNjhlMjY2ODQwODYyZTA0In0sImlhdCI6MTcwOTAzMTY5MX0.krG7eCmS3udBNMWZ4xEYhz1JrpOdu6FvqR3z173fWlM";
+     const authToken = localStorage.getItem('token');
 
      const [notes, setNotes] = useState([]);
 
@@ -40,7 +40,7 @@ const NoteState = (props) => {
      // Calling fetchAllNotes in useEffect  
      useEffect(() => {
           fetchAllNotes();
-     }, [notes]);
+     }, []);
 
 
 
@@ -112,7 +112,7 @@ const NoteState = (props) => {
                     });
                     setNotes(findedNote);
 
-                    toast.success(` "${deletedNoteTitle}" has been deleted `, {
+                    toast.error(` "${deletedNoteTitle}" has been deleted `, {
                          position: 'top-center',
                          autoClose: 3000
                     });
@@ -156,7 +156,6 @@ const NoteState = (props) => {
                     }
                });
                setNotes(notes);
-
                toast.success("Your note has been edited ... !", {
                     position: 'top-center',
                     autoClose: 3000

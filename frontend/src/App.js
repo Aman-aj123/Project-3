@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 //---> Files 
 import Home from "./pages/Home"
@@ -7,8 +7,12 @@ import NotFound from "./pages/NotFound"
 import NoteState from "./context/Notes/NoteState";
 import Header from "./components/Header";
 import AddNoteForm from "./components/AddNoteForm";
+import Signup from "./components/Signup";
+import Login from "./components/Login"
+import Userdetails from "./pages/Userdetails";
 
 function App() {
+
   return (
     <NoteState>
       <BrowserRouter>
@@ -16,7 +20,10 @@ function App() {
         <Routes>
 
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/addtodo" element={<AddNoteForm />}></Route>
+          <Route exact path="/addtodo" element={<AddNoteForm />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/userdetails" element={<Userdetails />} />
 
           <Route path="*" element={<NotFound />} />
 

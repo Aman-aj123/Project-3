@@ -27,14 +27,14 @@ router.post("/signup", authChecks, async (req, res) => {
 
      if (!errors.isEmpty()) {
           // If the errors happens in user credentials then send the error message
-          return res.status(400).json({ errors: errors.array() });
+          return res.status(400).json({ errors: errors.array(), sucess: false });
      }
 
      // Check if the user is already exists with the same email
      const isAlreadyUser = await User.findOne({ email: req.body.email });
 
      if (isAlreadyUser) {
-          res.status(400).json({ error: "Sorry, user already exists with this email" })
+          res.status(400).json({ error: "Sorry, user already exists with this email", sucess: false })
           return;
      }
 
@@ -60,12 +60,12 @@ router.post("/signup", authChecks, async (req, res) => {
           };
           const authToken = jwt.sign(data, JWT_SECRET);
 
-          res.status(200).json({ authToken });
+          res.status(200).json({ authToken, sucess: true });
 
      } catch (error) {
           // If the error happens then send the error message
           console.log(`Error happens while creating the user with : ${error}`)
-          res.status(500).json({ error: "Please enter a unique value of email" })
+          res.status(500).json({ error: "Please enter a unique value of email", sucess: false })
      }
 
 
@@ -87,7 +87,7 @@ router.post("/login", loginChecks, async (req, res) => {
 
      if (!errors.isEmpty()) {
           // If the errors happens in user credentials then send the error message
-          return res.status(400).json({ errors: errors.array() });
+          return res.status(400).json({ errors: errors.array(), sucess: false });
      };
 
      const { email, password } = req.body;
@@ -98,7 +98,7 @@ router.post("/login", loginChecks, async (req, res) => {
 
           // If the credentials are Invalied then send error
           if (!findedUser) {
-               res.status(500).json({ error: "Sorry, Please enter correct email !" });
+               res.status(500).json({ error: "Sorry, Please enter correct email !", sucess: false });
                return;
           }
 
@@ -107,7 +107,7 @@ router.post("/login", loginChecks, async (req, res) => {
 
           // If the password is invalied then send error
           if (!comparePassword) {
-               res.status(500).json({ error: "Sorry, Please enter correct password" })
+               res.status(500).json({ error: "Sorry, Please enter correct password", sucess: false })
                return;
           }
 
@@ -119,11 +119,11 @@ router.post("/login", loginChecks, async (req, res) => {
           };
           const authToken = jwt.sign(data, JWT_SECRET);
 
-          res.status(200).json({ authToken });
+          res.status(200).json({ authToken, sucess: true });
 
      } catch (error) {
           console.log(`Error happens while finding the user with : ${error}`);
-          res.send({ error: "Some internal server occurs !" });
+          res.send({ error: "Some internal server occurs !", sucess: false });
 
           return;
      }
@@ -143,11 +143,11 @@ router.post("/getuser", fetchUsers, async (req, res) => {
           const userId = req.user.id;
           const findedUser = await User.findById(userId).select("-password");
 
-          res.send(findedUser);
+          res.send({ findedUser, sucess: true });
 
      } catch (error) {
           console.log(`Some Internal server occurs with : ${error}`)
-          res.status(401).send({error: `Some Internal server occurs with : ${error}`})
+          res.status(401).send({ error: `Some Internal server occurs with : ${error}`, sucess: false })
      }
 
 });

@@ -1,10 +1,19 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import NoteContext from '../context/Notes/NoteContext';
 import { useNavigate } from 'react-router-dom';
 
 
 const AddNoteForm = () => {
      const navigate = useNavigate();
+     useEffect(() => {
+          const authToken = localStorage.getItem("token");
+
+          if (!authToken) {
+               navigate("/signup");
+          }
+     }, []);
+
+     
      // States variables
      const [notes, setNotes] = useState({ title: "", description: "", tags: "" });
 
