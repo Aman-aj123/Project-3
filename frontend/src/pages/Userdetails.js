@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import RandomColor from "../components/RandomColor"
 
 const Userdetails = () => {
      document.title = "iNotebook - User details";
@@ -6,6 +7,7 @@ const Userdetails = () => {
      const authToken = localStorage.getItem("token");
 
      const [userDetails, setUserDetails] = useState("");
+     const [randomColor, setRandomColor] = useState("");
 
 
      const fetchUserDetails = async () => {
@@ -35,9 +37,18 @@ const Userdetails = () => {
 
 
 
+     const getRandomColor = () => {
+          const genRandomColor = RandomColor();
+          setRandomColor(genRandomColor);
+     }
+
+     useEffect(() => {
+          getRandomColor();
+     }, []);
+
      return (
           <div className="userdetails-wrapper w-[90%] mx-auto">
-               <div className="rounded-full flex justify-center items-center w-[140px] h-[140px] bg-red-400 hover:bg-red-500 transition my-4">
+               <div style={{ background: randomColor }} className="rounded-full flex justify-center items-center w-[140px] h-[140px] hover:opacity-75 transition my-4">
                     <span className="text-6xl cursor-pointer text-white tracking-wider">{userDetails && userDetails.length !== 0 ? userDetails.name[0] : ""}</span>
                </div>
                <div className="user-info">

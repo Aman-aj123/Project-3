@@ -59,19 +59,25 @@ const NoteState = (props) => {
           try {
                const URL = `${process.env.REACT_APP_API_BASE_URL}/api/notes/addnote/`
                const data = await fetch(URL, options);
-               const addedNote = [...notes, { title, description, tags }];
-               setNotes(addedNote);
+              
 
                toast.success("Your note has been added ... !", {
                     position: 'top-center',
-                    autoClose: 3000
+                    autoClose: 800
                });
+
+               setTimeout(() => {
+                    window.location.reload();
+               }, 1000);
+
+
 
           } catch (error) {
                console.log(`Some error occurs while adding the note with : ${error}`);
           }
 
      }
+
 
 
      //------>  Delete note 
@@ -107,15 +113,14 @@ const NoteState = (props) => {
                try {
                     const URL = `${process.env.REACT_APP_API_BASE_URL}/api/notes/deletenote/${noteid}`
                     const data = await fetch(URL, options);
-                    const findedNote = notes.filter((element) => {
-                         return element._id !== noteid;
-                    });
-                    setNotes(findedNote);
-
+                     
                     toast.error(` "${deletedNoteTitle}" has been deleted `, {
                          position: 'top-center',
-                         autoClose: 3000
+                         autoClose: 800
                     });
+                    setTimeout(() => {
+                         window.location.reload();
+                    }, 1000);
 
 
                } catch (error) {
@@ -127,7 +132,6 @@ const NoteState = (props) => {
           }
 
      };
-
 
 
 
@@ -148,18 +152,14 @@ const NoteState = (props) => {
                const data = await fetch(URL, options);
 
 
-               notes.map((element, index) => {
-                    if (element._id === noteid) {
-                         notes[index].title = title;
-                         notes[index].description = description;
-                         notes[index].tags = tags;
-                    }
-               });
-               setNotes(notes);
+             
                toast.success("Your note has been edited ... !", {
                     position: 'top-center',
-                    autoClose: 3000
+                    autoClose: 800
                });
+               setTimeout(() => {
+                    window.location.reload();
+               }, 1000);
 
           } catch (error) {
                console.log(`Some error occurs while editing the note with: ${error}`);

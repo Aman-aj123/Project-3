@@ -35,12 +35,18 @@ const Login = () => {
                const response = await fetch(`${URL}/api/user/auth/login`, options);
                const data = await response.json();
                if (data.sucess) {
-                    toast.success("You have logged in sucessfuly !", {
-                         position: 'top-center',
-                         autoClose: 3000
-                    });
                     navigate("/");
                     localStorage.setItem("token", data.authToken);
+                    
+                    toast.success("You have logged in sucessfuly !", {
+                         position: 'top-center',
+                         autoClose: 800
+                    });
+                   
+                    setTimeout(() => {
+                         window.location.reload();
+                    }, 1000);
+                    
                } else {
                     toast.error("Envalied credentials !", {
                          position: 'top-center',

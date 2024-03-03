@@ -21,10 +21,12 @@ app.get("/", (req, res) => {
 // Routes variables
 const userRoute = require("./routes/auth");
 const notesRoute = require("./routes/notes");
+const fetchUsersRoute = require("./routes/fetchusers.js");
 
 //----> Custom routes 
 app.use("/api/user/auth", userRoute);
 app.use("/api/notes", notesRoute);
+app.use("/api/fetchusers", fetchUsersRoute);
 
 
 

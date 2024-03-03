@@ -34,12 +34,19 @@ const Signup = () => {
                const response = await fetch(`${URL}/api/user/auth/signup`, options);
                const data = await response.json();
                if (data.sucess) {
-                    toast.success(" Your account has been created sucessfuly !", {
-                         position: 'top-center',
-                         autoClose: 3000
-                    });
+                 
                     navigate("/");
                     localStorage.setItem("token", data.authToken);
+
+                    toast.success(" Your account has been created sucessfuly !", {
+                         position: 'top-center',
+                         autoClose: 800
+                    });
+                    setTimeout(() => {
+                         window.location.reload();
+                    }, 1000);
+
+
                } else{
                     toast.error("User already exists !", {
                          position: 'top-center',
@@ -72,7 +79,7 @@ const Signup = () => {
                               <form onSubmit={handleSubmit} className="md:space-y-3" action="#">
                                    <div>
                                         <label htmlFor="name" className="tracking-wider block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Name</label>
-                                        <input value={name} onChange={handleChange} minLength={6} maxLength={20} type="name" name="name" id="name" className="bg-gray-50 border h-[40px] border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full  focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={true} />
+                                        <input value={name} onChange={handleChange} minLength={7} maxLength={20} type="name" name="name" id="name" className="bg-gray-50 border h-[40px] border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full  focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={true} />
                                    </div>
                                    <div>
                                         <label htmlFor="email" className="tracking-wider block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
