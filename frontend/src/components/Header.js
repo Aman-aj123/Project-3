@@ -106,8 +106,8 @@ const Header = () => {
                 <button onClick={handleLogout} className="inline-flex items-center gap-1 px-2 bg-blue-500 hover:bg-blue-600 text-white -tracking-tighter border-0 py-2  focus:outline-none  rounded text-base mt-4 md:mt-0"> Logout
                   <i className="fa-solid fa-right-from-bracket"></i>
                 </button>
-                <div style={{ background: randomColor }} onClick={() => navigate("/userdetails")} className="rounded-full flex justify-center items-center w-[41px] h-[40px] hover:opacity-85 transition">
-                  <span className="text-xl cursor-pointer text-white tracking-wider">{userDetails && userDetails.length !== 0 ? userDetails.name[0] : ""}</span>
+                <div style={{ background: randomColor }} onClick={() => navigate("/userdetails")} className="cursor-pointer rounded-full flex justify-center items-center w-[41px] h-[40px] hover:opacity-85 transition">
+                  <span className="text-xl cursor-pointer text-white tracking-wider">{userDetails && userDetails?.length !== 0 ? userDetails?.name[0].toUpperCase() : ""}</span>
                 </div>
               </>
             }

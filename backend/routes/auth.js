@@ -134,7 +134,6 @@ router.post("/login", loginChecks, async (req, res) => {
 
 
 
-
 //-------> #3. Get user loggedin with a POST request on "/api/user/auth/getuser"
 
 router.post("/getuser", fetchUsers, async (req, res) => {

@@ -49,13 +49,13 @@ const Userdetails = () => {
      return (
           <div className="userdetails-wrapper w-[90%] mx-auto">
                <div style={{ background: randomColor }} className="rounded-full flex justify-center items-center w-[140px] h-[140px] hover:opacity-75 transition my-4">
-                    <span className="text-6xl cursor-pointer text-white tracking-wider">{userDetails && userDetails.length !== 0 ? userDetails.name[0] : ""}</span>
+                    <span className="text-6xl cursor-pointer text-white tracking-wider">{userDetails && userDetails.length !== 0 ? userDetails?.name[0].toUpperCase() : ""}</span>
                </div>
                <div className="user-info">
-                    <h1 className="mb-1 font-semibold">Username - <span className='ml-3 font-normal'>{userDetails.name}</span></h1>
-                    <h1 className="mb-1 font-semibold">Email - <span className='ml-3 font-normal'>{userDetails.email}</span></h1>
-                    <h1 className="mb-1 font-semibold">User Id - <span className='ml-3 font-normal'>{userDetails._id}</span></h1>
-                    <h1 className='font-semibold'>Account created   - <span className='ml-3 font-normal'>{new Date(userDetails.date).toLocaleString()}</span></h1>
+                    <h1 className="mb-1 font-semibold">Username - <span className='ml-3 font-normal'>{userDetails && `${userDetails?.name[0].toUpperCase()}${userDetails?.name.slice(1, userDetails?.name.length)}`}</span></h1>
+                    <h1 className="mb-1 font-semibold">Email - <span className='ml-3 font-normal'>{userDetails && userDetails?.email}</span></h1>
+                    <h1 className="mb-1 font-semibold">User Id - <span className='ml-3 font-normal'>{userDetails && userDetails?._id}</span></h1>
+                    <h1 className='font-semibold'>Account created   - <span className='ml-3 font-normal'>{userDetails && new Date(userDetails?.date).toLocaleString()}</span></h1>
                </div>
           </div>
      )

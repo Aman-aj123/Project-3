@@ -11,6 +11,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login"
 import Userdetails from "./pages/Userdetails";
 import About from "./pages/About";
+import AllUsers from "./pages/AllUsers";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/userdetails" element={<Userdetails />} />
           <Route exact path="/about" element={<About />} />
+          <Route exact path="/users" element={<AllUsers />} />
 
           <Route path="*" element={<NotFound />} />
 
