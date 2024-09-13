@@ -14,6 +14,7 @@ import About from "./pages/About";
 import AllUsers from "./pages/AllUsers";
 
 function App() {
+console.log(`Name is: ${process.env.REACT_APP_AMAN}`);
 
   return (
     <NoteState>

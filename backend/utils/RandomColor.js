@@ -12,5 +12,6 @@ const RandomColor = () => {
      return colors;
 
 };
+ 
 
- export default RandomColor;
+module.exports = RandomColor;

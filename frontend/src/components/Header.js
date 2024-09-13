@@ -1,14 +1,11 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import Logo from "../images/inotebook-logo.jpg"
-import RandomColor from "./RandomColor"
+import Logo from "../images/inotebook-logo.jpg";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 
 const Header = () => {
-  const [randomColor, setRandomColor] = useState("");
-
   const navigate = useNavigate();
   useEffect(() => {
     const authToken = localStorage.getItem("token");
@@ -18,24 +15,27 @@ const Header = () => {
     }
   }, []);
 
-
   const authToken = localStorage.getItem("token");
 
   const [userDetails, setUserDetails] = useState("");
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate("/signup");
+    // eslint-disable-next-line no-restricted-globals
+    const isConfirm = confirm("Are You Sure want to logout ?");
+    if (isConfirm) {
+      localStorage.removeItem("token");
+      navigate("/signup");
 
-    toast.error("You have logged out sucessfuly !", {
-      position: 'top-center',
-      autoClose: 800
-    });
+      toast.error("You have logged out sucessfuly !", {
+        position: "top-center",
+        autoClose: 800,
+      });
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
-  }
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  };
 
   const fetchUserDetails = async () => {
     try {
@@ -43,81 +43,119 @@ const Header = () => {
       const options = {
         method: "POST",
         headers: {
-          'auth-token': authToken,
-          'Content-Type': 'application/json'
-        }
-      }
+          "auth-token": authToken,
+          "Content-Type": "application/json",
+        },
+      };
       const data = await fetch(`${URL}/api/user/auth/getuser`, options);
       const response = await data.json();
       setUserDetails(response.findedUser);
-
     } catch (error) {
       console.log(`Error happens while fetching user with: ${error}`);
     }
   };
 
-
-
   useEffect(() => {
     fetchUserDetails();
   }, [authToken]);
 
-  const getRandomColor = () => {
-    const genRandomColor = RandomColor();
-    setRandomColor(genRandomColor);
-  }
-
-  useEffect(()=> {
-  getRandomColor();
-  }, []);
-
-
   return (
     <>
       <header className="text-gray-600 body-font">
-
         <div className="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
-          <Link to="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <Link
+            to="/"
+            className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+          >
             <img src={Logo} className="w-[40px]" />
             <span className="ml-3 text-xl">iNoteBook</span>
           </Link>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-            <NavLink to="/addtodo" className="mr-5 cursor-pointer transition hover:text-blue-500">Add Todo</NavLink>
-            <NavLink to="/" className="mr-5 cursor-pointer hover:text-blue-500">Home</NavLink>
-            <NavLink to="/about" className="mr-5 cursor-pointer transition hover:text-blue-500">About</NavLink>
-            <NavLink to="/users" className="mr-5 cursor-pointer transition hover:text-blue-500">Our users</NavLink>
+            <NavLink
+              to="/addtodo"
+              className="mr-5 cursor-pointer transition hover:text-blue-500"
+            >
+              Add Todo
+            </NavLink>
+            <NavLink to="/" className="mr-5 cursor-pointer hover:text-blue-500">
+              Home
+            </NavLink>
+            <NavLink
+              to="/about"
+              className="mr-5 cursor-pointer transition hover:text-blue-500"
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/users"
+              className="mr-5 cursor-pointer transition hover:text-blue-500"
+            >
+              Our users
+            </NavLink>
           </nav>
           {/* buttons  */}
           <div className="btn-container flex justify-center gap-2">
-            {!authToken &&
+            {!authToken && (
               <>
-                <button onClick={() => navigate("/signup")} className="inline-flex items-center px-2 bg-blue-500 hover:bg-blue-600 text-white -tracking-tighter border-0 py-2  selection:focus:outline-none  rounded text-base mt-4 md:mt-0"> Signup
-                  <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                <button
+                  onClick={() => navigate("/signup")}
+                  className="inline-flex items-center px-2 bg-blue-500 hover:bg-blue-600 text-white -tracking-tighter border-0 py-2  selection:focus:outline-none  rounded text-base mt-4 md:mt-0"
+                >
+                  {" "}
+                  Signup
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    className="w-4 h-4 ml-1"
+                    viewBox="0 0 24 24"
+                  >
                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                   </svg>
                 </button>
 
-                <button onClick={() => navigate("/login")} className="inline-flex items-center gap-1 px-2 bg-blue-500 hover:bg-blue-600 text-white -tracking-tighter border-0 py-2  focus:outline-none  rounded text-base mt-4 md:mt-0"> Login
+                <button
+                  onClick={() => navigate("/login")}
+                  className="inline-flex items-center gap-1 px-2 bg-blue-500 hover:bg-blue-600 text-white -tracking-tighter border-0 py-2  focus:outline-none  rounded text-base mt-4 md:mt-0"
+                >
+                  {" "}
+                  Login
                   <i className="fa-solid fa-right-to-bracket"></i>
                 </button>
               </>
-            } {authToken &&
+            )}{" "}
+            {authToken && (
               <>
-                <button onClick={handleLogout} className="inline-flex items-center gap-1 px-2 bg-blue-500 hover:bg-blue-600 text-white -tracking-tighter border-0 py-2  focus:outline-none  rounded text-base mt-4 md:mt-0"> Logout
+                <button
+                  onClick={handleLogout}
+                  className="inline-flex items-center gap-1 px-2 bg-blue-500 hover:bg-blue-600 text-white -tracking-tighter border-0 py-2  focus:outline-none  rounded text-base mt-4 md:mt-0"
+                >
+                  {" "}
+                  Logout
                   <i className="fa-solid fa-right-from-bracket"></i>
                 </button>
-                <div style={{ background: randomColor }} onClick={() => navigate("/userdetails")} className="cursor-pointer rounded-full flex justify-center items-center w-[41px] h-[40px] hover:opacity-85 transition">
-                  <span className="text-xl cursor-pointer text-white tracking-wider">{userDetails && userDetails?.length !== 0 ? userDetails?.name[0].toUpperCase() : ""}</span>
+                <div
+                  style={{
+                    background: userDetails && userDetails?.profile.color,
+                  }}
+                  onClick={() => navigate("/userdetails")}
+                  className="cursor-pointer rounded-full flex justify-center items-center w-[41px] h-[40px] hover:opacity-85 transition"
+                >
+                  <span className="text-xl cursor-pointer text-white tracking-wider">
+                    {userDetails && userDetails?.length !== 0
+                      ? userDetails?.name[0].toUpperCase()
+                      : ""}
+                  </span>
                 </div>
               </>
-            }
+            )}
           </div>
-
         </div>
       </header>
     </>
+  );
+};
 
-  )
-}
-
-export default Header
+export default Header;

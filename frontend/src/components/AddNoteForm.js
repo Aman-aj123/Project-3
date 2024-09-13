@@ -7,7 +7,7 @@ const AddNoteForm = () => {
      const navigate = useNavigate();
      useEffect(() => {
           const authToken = localStorage.getItem("token");
-
+          // If  the user is not logged in then navigating to the signup page
           if (!authToken) {
                navigate("/signup");
           }

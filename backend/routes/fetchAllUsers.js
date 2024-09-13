@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post("/", fetchUsers, async (req, res) => {
      try {
+          // displaying all the users
           const users = await User.find({});
           res.status(200).json({ sucess: true, users });
 

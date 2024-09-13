@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-import RandomColor from '../components/RandomColor';
 
 const AllUsers = () => {
      const navigate = useNavigate();
@@ -48,7 +47,7 @@ const AllUsers = () => {
                <div className='users-wrapper  w-[80%] mx-auto'>
                     {[...usersData].reverse().map((element, index) => (
                          <div key={index} className="users gap-3 items-center flex mb-4">
-                              <div style={{ background: RandomColor() }} className='user-proifle w-[68px] h-[65px] flex justify-center items-center text-2xl text-white rounded-full cursor-pointer hover:opacity-85 transition'>{element?.name[0].toUpperCase()}</div>
+                              <div style={{ background: element?.profile.color }} className='user-proifle w-[68px] h-[65px] flex justify-center items-center text-2xl text-white rounded-full cursor-pointer hover:opacity-85 transition'>{element?.name[0].toUpperCase()}</div>
                               <h2 className='user-name'>{`${element?.name[0].toUpperCase()}${element?.name.slice(1, element.name.length)}`}</h2>
                          </div>
                     ))}

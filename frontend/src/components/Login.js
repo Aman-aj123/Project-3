@@ -13,6 +13,7 @@ const Login = () => {
 
      const [creditionals, setCreditionals] = useState({ email: "", password: "" });
      const { email, password } = creditionals;
+     const [loading, setLoading] = useState(false);
 
      const handleChange = (e) => {
           setCreditionals({ ...creditionals, [e.target.name]: e.target.value });
@@ -21,6 +22,7 @@ const Login = () => {
 
      const handleSubmit = async (e) => {
           e.preventDefault();
+          setLoading(true);
 
           const URL = process.env.REACT_APP_API_BASE_URL;
           const options = {
@@ -34,6 +36,7 @@ const Login = () => {
           try {
                const response = await fetch(`${URL}/api/user/auth/login`, options);
                const data = await response.json();
+               setLoading(false);
                if (data.sucess) {
                     navigate("/");
                     localStorage.setItem("token", data.authToken);
@@ -90,7 +93,7 @@ const Login = () => {
                                              <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <Link className="font-medium text-primary-600 hover:underline dark:text-primary-500" to="#">Terms and Conditions</Link></label>
                                         </div>
                                    </div>
-                                   <button className="w-full text-white bg-blue-500 hover:bg-blue-600 my-3 tracking-wider  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800">Submit</button>
+                                   <button className="w-full text-white bg-blue-500 hover:bg-blue-600 my-3 tracking-wider  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800"> {!loading &&"Submit"} {loading && "Logging..."}</button>
                                    <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                         Not have an account ? <Link to="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Signup here</Link>
                                    </p>

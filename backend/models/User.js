@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
           require: true,
           unique: true
      },
+     profile: {
+          color: {
+               type: String
+          }
+     },
      date: {
           type: Date,
           default: Date.now

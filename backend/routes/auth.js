@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const fetchUsers = require("../middleware/fetchUsers");
+const RandomColor = require('../utils/RandomColor');
 
 // Packages
 const { body, validationResult } = require("express-validator");
@@ -42,10 +43,16 @@ router.post("/signup", authChecks, async (req, res) => {
      const salt = await bcrypt.genSalt(10);
      const securePass = await bcrypt.hash(req.body.password, salt);
 
+     // Generating Random colors
+     const getRandomColor = RandomColor();
+
      const createdUser = {
           name: req.body.name,
           email: req.body.email,
-          password: securePass
+          password: securePass,
+          profile: {
+               color: getRandomColor
+          }
      };
 
      try {
@@ -81,6 +88,7 @@ const loginChecks = [
      body("email", "Please enter a valied email").isEmail(),
      body("password", "Password cannot be blank").exists(),
 ];
+
 
 router.post("/login", loginChecks, async (req, res) => {
      const errors = validationResult(req);
@@ -152,7 +160,7 @@ router.post("/getuser", fetchUsers, async (req, res) => {
 });
 
 
-
+ 
 module.exports = router;
 
 

@@ -11,7 +11,9 @@ const Signup = () => {
      const navigate = useNavigate();
 
      const [creditionals, setCreditionals] = useState({ name: "", email: "", password: "" });
+     const [loading, setLoading] = useState(false);
      const { name, email, password } = creditionals;
+     
 
      const handleChange = (e) => {
           setCreditionals({ ...creditionals, [e.target.name]: e.target.value });
@@ -20,6 +22,7 @@ const Signup = () => {
 
      const handleSubmit = async (e) => {
           e.preventDefault();
+          setLoading(true);
 
           const URL = process.env.REACT_APP_API_BASE_URL;
           const options = {
@@ -33,6 +36,7 @@ const Signup = () => {
           try {
                const response = await fetch(`${URL}/api/user/auth/signup`, options);
                const data = await response.json();
+               setLoading(false);
                if (data.sucess) {
                  
                     navigate("/");
@@ -98,7 +102,7 @@ const Signup = () => {
                                              <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <Link className="font-medium text-primary-600 hover:underline dark:text-primary-500" to="#">Terms and Conditions</Link></label>
                                         </div>
                                    </div>
-                                   <button className="w-full text-white bg-blue-500 hover:bg-blue-600 my-3 tracking-wider  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800">Submit</button>
+                                   <button className="w-full text-white bg-blue-500 hover:bg-blue-600 my-3 tracking-wider  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800">{!loading &&"Submit"} {loading && "Creating account..."}</button>
                                    <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                         Already have an account? <Link to="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</Link>
                                    </p>
